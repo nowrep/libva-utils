@@ -2109,6 +2109,7 @@ svcenc_update_misc_parameter_buffer(struct svcenc_context *ctx, svcenc_surface *
 
         misc_param->type = VAEncMiscParameterTypeRateControl;
         misc_ratecontrol_param = (VAEncMiscParameterRateControl *)misc_param->data;
+        memset(misc_ratecontrol_param, 0, sizeof(*misc_ratecontrol_param));
 
         misc_ratecontrol_param->bits_per_second = 1024 * ctx->bits_per_kbps;
 
@@ -2129,6 +2130,7 @@ svcenc_update_misc_parameter_buffer(struct svcenc_context *ctx, svcenc_surface *
 
         misc_param->type = VAEncMiscParameterTypeFrameRate;
         misc_framerate_param = (VAEncMiscParameterFrameRate *)misc_param->data;
+        memset(misc_framerate_param, 0, sizeof(*misc_framerate_param));
         misc_framerate_param->framerate = ((100 << 16) | ctx->framerate_per_100s);
 
         misc_ratecontrol_param->bits_per_second = 1024 * ctx->bits_per_kbps;
@@ -2173,6 +2175,7 @@ svcenc_update_misc_parameter_buffer(struct svcenc_context *ctx, svcenc_surface *
 
         misc_param->type = VAEncMiscParameterTypeTemporalLayerStructure;
         misc_layer_structure_param = (VAEncMiscParameterTemporalLayerStructure *)misc_param->data;
+        memset(misc_layer_structure_param, 0, sizeof(*misc_layer_structure_param));
 
         misc_layer_structure_param->number_of_layers = ctx->hierarchical_levels;
         misc_layer_structure_param->periodicity = ctx->gop_size;
@@ -2215,6 +2218,7 @@ svcenc_update_misc_parameter_buffer(struct svcenc_context *ctx, svcenc_surface *
 
             misc_param->type = VAEncMiscParameterTypeRateControl;
             misc_ratecontrol_param = (VAEncMiscParameterRateControl *)misc_param->data;
+            memset(misc_ratecontrol_param, 0, sizeof(*misc_ratecontrol_param));
             misc_ratecontrol_param->bits_per_second = 1024 * ctx->bits_per_kbps * ((float)numerator / ctx->gop_size);
             misc_ratecontrol_param->rc_flags.bits.temporal_id = i;
 
@@ -2235,6 +2239,7 @@ svcenc_update_misc_parameter_buffer(struct svcenc_context *ctx, svcenc_surface *
 
             misc_param->type = VAEncMiscParameterTypeFrameRate;
             misc_framerate_param = (VAEncMiscParameterFrameRate *)misc_param->data;
+            memset(misc_framerate_param, 0, sizeof(*misc_framerate_param));
             misc_framerate_param->framerate = ((100 << 16) | framerate_per_100s);
             misc_framerate_param->framerate_flags.bits.temporal_id = i;
 
@@ -2256,6 +2261,7 @@ svcenc_update_misc_parameter_buffer(struct svcenc_context *ctx, svcenc_surface *
 
         misc_param->type = VAEncMiscParameterTypeHRD;
         misc_hrd_param = (VAEncMiscParameterHRD *)misc_param->data;
+        memset(misc_hrd_param, 0, sizeof(*misc_hrd_param));
 
         misc_hrd_param->initial_buffer_fullness = ctx->bits_per_kbps * 1024 * 4;
         misc_hrd_param->buffer_size = ctx->bits_per_kbps * 1024 * 8;
