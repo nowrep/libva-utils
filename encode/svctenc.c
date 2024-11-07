@@ -1931,6 +1931,13 @@ svcenc_update_slice_parameter_buffer(struct svcenc_context *ctx,
     slice_param = &ctx->slice_param[i];
     memset(slice_param, 0, sizeof(*slice_param));
 
+    for (int j = 0; j < 32; j++) {
+        slice_param->RefPicList0[j].picture_id = VA_INVALID_SURFACE;
+        slice_param->RefPicList0[j].flags = VA_PICTURE_H264_INVALID;
+        slice_param->RefPicList1[j].picture_id = VA_INVALID_SURFACE;
+        slice_param->RefPicList1[j].flags = VA_PICTURE_H264_INVALID;
+    }
+
     slice_param->macroblock_address = 0;
     slice_param->num_macroblocks = height_in_mbs * width_in_mbs;
     slice_param->pic_parameter_set_id = svcenc_pic_parameter_set_id(ctx, current_surface);
